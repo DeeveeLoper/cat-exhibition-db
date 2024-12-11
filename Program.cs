@@ -23,7 +23,6 @@ class Cat
     public int Age { get; set; }
 }
 
-
 class Program
 {
     static DatabaseRepository repo = new DatabaseRepository();
@@ -105,11 +104,9 @@ class Program
     }
 
     //---------------- Ägare ----------------------------
-
     static void PrintOwners()
     {
         IEnumerable<Owner> owners = repo.GetOwners();
-        
         foreach (Owner s in owners)
         {
             Console.WriteLine($"Id: {s.OwnerId} Namn: {s.Name}");
@@ -118,10 +115,8 @@ class Program
 
     static void InsertOwner()
     {
-        // Läsa in namn för ägare
         Console.Write("Name: ");
         string name = Chelp.ReadString();
-
         repo.InsertOwner(name);
     }
 
@@ -129,11 +124,8 @@ class Program
     {
         Console.Write("Ange id på den ägare du vill uppdatera: ");
         int id = Chelp.ReadInt();
-
-        // Uppdatera ägarens namn
         Console.Write("Namn: ");
         string name = Chelp.ReadString();
-
         repo.UpdateOwner(id, name);
     }
 
@@ -141,17 +133,14 @@ class Program
     {
         Console.Write("Ange id på den ägare du vill ta bort: ");
         int id = Chelp.ReadInt();
-
         repo.DeleteOwner(id);
     }
 
 
     //---------------- Utställning ----------------------------
-
     static void PrintExhibitions()
     {
         IEnumerable<Exhibition> exhibitions = repo.GetExhibitions();
-
         foreach (Exhibition s in exhibitions)
         {
             Console.WriteLine($"Id: {s.ExhibitionId} Namn: {s.Name} Datum: {s.ExhibitionDate}");
@@ -160,14 +149,10 @@ class Program
 
     static void InsertExhibition()
     {
-        // Läsa in namn för ägare
         Console.Write("Namn: ");
         string name = Chelp.ReadString();
-
         Console.Write("Datum för utställning: ");
         DateTime exhibitionDate = Chelp.ReadDate();
-
-
         repo.InsertExhibition(name, exhibitionDate);
     }
 
@@ -175,14 +160,10 @@ class Program
     {
         Console.Write("Ange id på den utställning du vill uppdatera: ");
         int id = Chelp.ReadInt();
-
-        // Uppdatera ägarens namn
         Console.Write("Namn: ");
         string name = Chelp.ReadString();
-
         Console.Write("Datum för utställning: ");
         DateTime exhibitionDate = Chelp.ReadDate();
-
         repo.UpdateExhibition(id, name, exhibitionDate);
     }
 
@@ -190,17 +171,14 @@ class Program
     {
         Console.Write("Ange id på den utställning du vill ta bort: ");
         int id = Chelp.ReadInt();
-
         repo.DeleteExhibition(id);
     }
 
 
     //---------------- Katt ----------------------------
-
     static void PrintCats()
     {
         IEnumerable<Cat> cats = repo.GetCats();
-
         foreach (Cat c in cats)
         {
             Console.WriteLine($"Id: {c.CatId} Namn: {c.Name} Ålder: {c.Age}");
@@ -209,13 +187,10 @@ class Program
 
     static void InsertCat()
     {
-        // Läsa in namn för ägare
         Console.Write("Namn: ");
         string name = Chelp.ReadString();
-        
         Console.Write("Ålder: ");
         int age = Chelp.ReadInt();
-
         repo.InsertCat(name, age);
     }
 
@@ -223,14 +198,10 @@ class Program
     {
         Console.Write("Ange id på den katt du vill uppdatera: ");
         int id = Chelp.ReadInt();
-
-        // Uppdatera ägarens namn
         Console.Write("Namn: ");
         string name = Chelp.ReadString();
-
         Console.Write("Ålder: ");
         int age = Chelp.ReadInt();
-
         repo.UpdateCat(id, name, age);
     }
 
@@ -238,7 +209,6 @@ class Program
     {
         Console.Write("Ange id på den katt du vill ta bort: ");
         int id = Chelp.ReadInt();
-
         repo.DeleteCat(id);
     }
 }
