@@ -20,6 +20,7 @@ class Cat
 {
     public int CatId { get; set; }
     public string Name { get; set; }
+    public int Age { get; set; }
 }
 
 
@@ -31,26 +32,25 @@ class Program
     {
         while (true)
         {
-            Console.WriteLine("1. Print owners");
-            Console.WriteLine("2. Add owner");
-            Console.WriteLine("3. Update owner");
-            Console.WriteLine("4. Delete owner");
+            Console.WriteLine("1. Visa alla ägare");
+            Console.WriteLine("2. Lägg till ägare");
+            Console.WriteLine("3. Uppdatera ägare");
+            Console.WriteLine("4. Ta bort ägare");
 
             Console.WriteLine("----------------");
-            Console.WriteLine("5. Print exhibitions");
-            Console.WriteLine("6. Add exhibition");
-            Console.WriteLine("7. Update exhibition");
-            Console.WriteLine("8. Delete exhibition");
+            Console.WriteLine("5. Visa alla utställningar");
+            Console.WriteLine("6. Lägg till utställning");
+            Console.WriteLine("7. Uppdatera utställning");
+            Console.WriteLine("8. Ta bort utställning");
 
             Console.WriteLine("----------------");
-            Console.WriteLine("9. Print cats");
-            Console.WriteLine("10. Add cat");
-            Console.WriteLine("11. Update cat");
-
-            Console.WriteLine("12. Delete cat");
+            Console.WriteLine("9. Visa alla katter");
+            Console.WriteLine("10. Lägg till katt");
+            Console.WriteLine("11. Uppdatera katt");
+            Console.WriteLine("12. Ta bort katt");
 
             Console.WriteLine("----------------");
-            Console.WriteLine("e. Exit");
+            Console.WriteLine("a. Avsluta");
 
             Console.Write("Select: ");
             string choice = Console.ReadLine();
@@ -83,19 +83,19 @@ class Program
                     break;
 
                 case "9":
-       //             PrintCat();
+                    PrintCats();
                     break;
                 case "10":
-         //           InsertCat();
+                    InsertCat();
                     break;
                 case "11":
-          //          UpdateCat();
+                    UpdateCat();
                     break;
                 case "12":
-            //        DeleteCat();
+                    DeleteCat();
                     break;
 
-                case "e":
+                case "a":
                     return;
                 default:
                     Console.WriteLine("Invalid choice");
@@ -104,7 +104,7 @@ class Program
         }
     }
 
-    //---------------- Owner ----------------------------
+    //---------------- Ägare ----------------------------
 
     static void PrintOwners()
     {
@@ -112,7 +112,7 @@ class Program
         
         foreach (Owner s in owners)
         {
-            Console.WriteLine($"Id: {s.OwnerId} Name: {s.Name}");
+            Console.WriteLine($"Id: {s.OwnerId} Namn: {s.Name}");
         }
     }
 
@@ -127,11 +127,11 @@ class Program
 
     static void UpdateOwner()
     {
-        Console.Write("Ange id på den du vill uppdatera: ");
+        Console.Write("Ange id på den ägare du vill uppdatera: ");
         int id = Chelp.ReadInt();
 
         // Uppdatera ägarens namn
-        Console.Write("Name: ");
+        Console.Write("Namn: ");
         string name = Chelp.ReadString();
 
         repo.UpdateOwner(id, name);
@@ -146,8 +146,7 @@ class Program
     }
 
 
-
-    //---------------- Exhibition ----------------------------
+    //---------------- Utställning ----------------------------
 
     static void PrintExhibitions()
     {
@@ -155,17 +154,17 @@ class Program
 
         foreach (Exhibition s in exhibitions)
         {
-            Console.WriteLine($"Id: {s.ExhibitionId} Name: {s.Name} Date: {s.ExhibitionDate}");
+            Console.WriteLine($"Id: {s.ExhibitionId} Namn: {s.Name} Datum: {s.ExhibitionDate}");
         }
     }
 
     static void InsertExhibition()
     {
         // Läsa in namn för ägare
-        Console.Write("Name: ");
+        Console.Write("Namn: ");
         string name = Chelp.ReadString();
 
-        Console.Write("Date of exhibition: ");
+        Console.Write("Datum för utställning: ");
         DateTime exhibitionDate = Chelp.ReadDate();
 
 
@@ -174,14 +173,14 @@ class Program
 
     static void UpdateExhibition()
     {
-        Console.Write("Ange id på utställning du vill uppdatera: ");
+        Console.Write("Ange id på den utställning du vill uppdatera: ");
         int id = Chelp.ReadInt();
 
         // Uppdatera ägarens namn
-        Console.Write("Name: ");
+        Console.Write("Namn: ");
         string name = Chelp.ReadString();
 
-        Console.Write("Date of exhibition: ");
+        Console.Write("Datum för utställning: ");
         DateTime exhibitionDate = Chelp.ReadDate();
 
         repo.UpdateExhibition(id, name, exhibitionDate);
@@ -195,4 +194,51 @@ class Program
         repo.DeleteExhibition(id);
     }
 
+
+    //---------------- Katt ----------------------------
+
+    static void PrintCats()
+    {
+        IEnumerable<Cat> cats = repo.GetCats();
+
+        foreach (Cat c in cats)
+        {
+            Console.WriteLine($"Id: {c.CatId} Namn: {c.Name} Ålder: {c.Age}");
+        }
+    }
+
+    static void InsertCat()
+    {
+        // Läsa in namn för ägare
+        Console.Write("Namn: ");
+        string name = Chelp.ReadString();
+        
+        Console.Write("Ålder: ");
+        int age = Chelp.ReadInt();
+
+        repo.InsertCat(name, age);
+    }
+
+    static void UpdateCat()
+    {
+        Console.Write("Ange id på den katt du vill uppdatera: ");
+        int id = Chelp.ReadInt();
+
+        // Uppdatera ägarens namn
+        Console.Write("Namn: ");
+        string name = Chelp.ReadString();
+
+        Console.Write("Ålder: ");
+        int age = Chelp.ReadInt();
+
+        repo.UpdateCat(id, name, age);
+    }
+
+    static void DeleteCat()
+    {
+        Console.Write("Ange id på den katt du vill ta bort: ");
+        int id = Chelp.ReadInt();
+
+        repo.DeleteCat(id);
+    }
 }
